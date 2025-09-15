@@ -20,15 +20,15 @@ npm install safe-env
 ## Quick Start
 
 ```typescript
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 // Basic usage - exits process if variables are missing
-checkEnv(['DATABASE_URL', 'API_KEY']);
+checkEnv(["DATABASE_URL", "API_KEY"]);
 
 // Safe mode - returns result without exiting
-const result = checkEnv(['DATABASE_URL', 'API_KEY'], { exitOnError: false });
+const result = checkEnv(["DATABASE_URL", "API_KEY"], { exitOnError: false });
 if (!result.success) {
-  console.log('Missing variables:', result.missing);
+  console.log("Missing variables:", result.missing);
 }
 ```
 
@@ -39,20 +39,22 @@ if (!result.success) {
 Checks for required environment variables.
 
 **Parameters:**
+
 - `requiredVars: string[]` - Array of required environment variable names
 - `options?: CheckEnvOptions` - Configuration options
 
 **Returns:** `CheckEnvResult`
 
 **Example:**
+
 ```typescript
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 // Exit on missing variables (default)
-checkEnv(['DATABASE_URL', 'API_KEY']);
+checkEnv(["DATABASE_URL", "API_KEY"]);
 
 // Non-exit mode
-const result = checkEnv(['DATABASE_URL', 'API_KEY'], { exitOnError: false });
+const result = checkEnv(["DATABASE_URL", "API_KEY"], { exitOnError: false });
 console.log(result.success); // boolean
 console.log(result.missing); // string[]
 ```
@@ -62,19 +64,21 @@ console.log(result.missing); // string[]
 Safe version that never exits the process.
 
 **Parameters:**
-- `requiredVars: string[]` - Array of required environment variable names  
+
+- `requiredVars: string[]` - Array of required environment variable names
 - `options?: CheckEnvOptions` - Configuration options (exitOnError is ignored)
 
 **Returns:** `CheckEnvResult`
 
 **Example:**
-```typescript
-import { checkEnvSafe } from 'safe-env';
 
-const result = checkEnvSafe(['DATABASE_URL', 'API_KEY']);
+```typescript
+import { checkEnvSafe } from "safe-env";
+
+const result = checkEnvSafe(["DATABASE_URL", "API_KEY"]);
 if (!result.success) {
   // Handle missing variables gracefully
-  console.error('Missing required environment variables:', result.missing);
+  console.error("Missing required environment variables:", result.missing);
 }
 ```
 
@@ -83,19 +87,21 @@ if (!result.success) {
 Checks environment variables from a custom source.
 
 **Parameters:**
+
 - `source: Record<string, string | undefined>` - Custom environment source
 - `options?: Omit<CheckEnvOptions, 'source'>` - Configuration options
 
 **Returns:** `CheckEnvResult`
 
 **Example:**
+
 ```typescript
-import { checkEnvSource } from 'safe-env';
+import { checkEnvSource } from "safe-env";
 
 const config = {
   DATABASE_URL: process.env.DATABASE_URL,
   API_KEY: process.env.API_KEY,
-  SECRET: process.env.SECRET
+  SECRET: process.env.SECRET,
 };
 
 const result = checkEnvSource(config, { exitOnError: false });
@@ -108,16 +114,16 @@ const result = checkEnvSource(config, { exitOnError: false });
 Perfect for framework-specific variables:
 
 ```typescript
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 // Check only Next.js variables
-checkEnv(['NEXT_PUBLIC_API_URL', 'NEXT_SECRET'], { 
-  prefix: 'NEXT_' 
+checkEnv(["NEXT_PUBLIC_API_URL", "NEXT_SECRET"], {
+  prefix: "NEXT_",
 });
 
 // Check only custom app variables
-checkEnv(['MYAPP_DATABASE_URL', 'MYAPP_API_KEY'], { 
-  prefix: 'MYAPP_' 
+checkEnv(["MYAPP_DATABASE_URL", "MYAPP_API_KEY"], {
+  prefix: "MYAPP_",
 });
 ```
 
@@ -126,35 +132,35 @@ checkEnv(['MYAPP_DATABASE_URL', 'MYAPP_API_KEY'], {
 Check variables from configuration objects:
 
 ```typescript
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 const config = {
   DATABASE_URL: process.env.DATABASE_URL,
   API_KEY: getApiKeyFromVault(), // Custom source
-  REDIS_URL: process.env.REDIS_URL
+  REDIS_URL: process.env.REDIS_URL,
 };
 
-const result = checkEnv(['DATABASE_URL', 'API_KEY', 'REDIS_URL'], {
+const result = checkEnv(["DATABASE_URL", "API_KEY", "REDIS_URL"], {
   source: config,
-  exitOnError: false
+  exitOnError: false,
 });
 ```
 
 ### Combined Options
 
 ```typescript
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 const customConfig = {
   NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   NEXT_SECRET: getSecretFromVault(),
-  OTHER_VAR: 'ignored due to prefix'
+  OTHER_VAR: "ignored due to prefix",
 };
 
-const result = checkEnv(['NEXT_PUBLIC_API_URL', 'NEXT_SECRET'], {
+const result = checkEnv(["NEXT_PUBLIC_API_URL", "NEXT_SECRET"], {
   source: customConfig,
-  prefix: 'NEXT_',
-  exitOnError: false
+  prefix: "NEXT_",
+  exitOnError: false,
 });
 ```
 
@@ -196,15 +202,10 @@ When variables are missing, safe-env outputs a clear error message:
 
 ```typescript
 // app.ts
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 // Ensure all required variables are present before starting
-checkEnv([
-  'DATABASE_URL',
-  'REDIS_URL', 
-  'JWT_SECRET',
-  'API_PORT'
-]);
+checkEnv(["DATABASE_URL", "REDIS_URL", "JWT_SECRET", "API_PORT"]);
 
 // Start your application
 startServer();
@@ -214,10 +215,10 @@ startServer();
 
 ```typescript
 // next.config.js
-import { checkEnv } from 'safe-env';
+import { checkEnv } from "safe-env";
 
 // Check Next.js specific variables
-checkEnv(['NEXT_PUBLIC_API_URL'], { prefix: 'NEXT_' });
+checkEnv(["NEXT_PUBLIC_API_URL"], { prefix: "NEXT_" });
 
 export default {
   // your config
@@ -228,23 +229,21 @@ export default {
 
 ```typescript
 // config.ts
-import { checkEnvSafe } from 'safe-env';
+import { checkEnvSafe } from "safe-env";
 
 export function getConfig() {
-  const result = checkEnvSafe([
-    'DATABASE_URL',
-    'API_KEY',
-    'REDIS_URL'
-  ]);
+  const result = checkEnvSafe(["DATABASE_URL", "API_KEY", "REDIS_URL"]);
 
   if (!result.success) {
-    throw new Error(`Missing environment variables: ${result.missing.join(', ')}`);
+    throw new Error(
+      `Missing environment variables: ${result.missing.join(", ")}`,
+    );
   }
 
   return {
     database: process.env.DATABASE_URL!,
     apiKey: process.env.API_KEY!,
-    redis: process.env.REDIS_URL!
+    redis: process.env.REDIS_URL!,
   };
 }
 ```

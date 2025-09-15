@@ -18,6 +18,7 @@
     "build": "tsc",
     "test": "vitest",
     "dev": "tsc --watch",
+    "tidy": "prettier --write '**/*.{ts,js,json,md}'",
     "publish": "npm run build && npm publish --access public"
   },
   "files": [
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "dotenv": "^17.2.2",
+    "prettier": "^3.6.2",
     "typescript": "^5.0.0",
     "vitest": "^3.2.4"
   },

@@ -21,7 +21,7 @@ function formatErrorMessage(missing: string[]): string {
   return `
 ☠️  ENVIRONMENT VARIABLES MISSING ☠️
 ───────────────────────────────────
-${missing.map((v) => `❌ ${v}`).join('\n')}
+${missing.map((v) => `❌ ${v}`).join("\n")}
 ───────────────────────────────────
 `;
 }
@@ -29,18 +29,21 @@ ${missing.map((v) => `❌ ${v}`).join('\n')}
 /**
  * Gets environment variables with optional prefix filtering
  */
-function getEnvSource(source?: Record<string, string | undefined>, prefix?: string): Record<string, string | undefined> {
+function getEnvSource(
+  source?: Record<string, string | undefined>,
+  prefix?: string,
+): Record<string, string | undefined> {
   const envSource = source || process.env;
-  
+
   if (!prefix) return envSource;
-  
+
   const filteredEnv: Record<string, string | undefined> = {};
-  Object.keys(envSource).forEach(key => {
+  Object.keys(envSource).forEach((key) => {
     if (key.startsWith(prefix)) {
       filteredEnv[key] = envSource[key];
     }
   });
-  
+
   return filteredEnv;
 }
 
@@ -50,23 +53,26 @@ function getEnvSource(source?: Record<string, string | undefined>, prefix?: stri
  * @param options Configuration options
  * @returns Result object with missing variables and success status
  */
-export function checkEnv(requiredVars: string[], options: CheckEnvOptions = {}): CheckEnvResult {
+export function checkEnv(
+  requiredVars: string[],
+  options: CheckEnvOptions = {},
+): CheckEnvResult {
   const { prefix, source, exitOnError = true } = options;
   const envSource = getEnvSource(source, prefix);
-  
+
   // If prefix is provided, filter required vars to only those with the prefix
-  const varsToCheck = prefix 
-    ? requiredVars.filter(v => v.startsWith(prefix))
+  const varsToCheck = prefix
+    ? requiredVars.filter((v) => v.startsWith(prefix))
     : requiredVars;
-  
-  const missing = varsToCheck.filter(v => !envSource[v]);
+
+  const missing = varsToCheck.filter((v) => !envSource[v]);
   const success = missing.length === 0;
-  
+
   if (!success && exitOnError) {
     console.error(formatErrorMessage(missing));
     process.exit(1);
   }
-  
+
   if (!success && !exitOnError) {
     console.warn(formatErrorMessage(missing));
   }
@@ -80,7 +86,10 @@ export function checkEnv(requiredVars: string[], options: CheckEnvOptions = {}):
  * @param options Configuration options
  * @returns Result object with missing variables and success status
  */
-export function checkEnvSafe(requiredVars: string[], options: CheckEnvOptions = {}): CheckEnvResult {
+export function checkEnvSafe(
+  requiredVars: string[],
+  options: CheckEnvOptions = {},
+): CheckEnvResult {
   return checkEnv(requiredVars, { ...options, exitOnError: false });
 }
 
@@ -90,9 +99,10 @@ export function checkEnvSafe(requiredVars: string[], options: CheckEnvOptions = 
  * @param options Configuration options
  * @returns Result object with missing variables and success status
  */
-export function checkEnvSource(source: Record<string, string | undefined>, options: Omit<CheckEnvOptions, 'source'> = {}): CheckEnvResult {
+export function checkEnvSource(
+  source: Record<string, string | undefined>,
+  options: Omit<CheckEnvOptions, "source"> = {},
+): CheckEnvResult {
   const requiredVars = Object.keys(source);
   return checkEnv(requiredVars, { ...options, source });
 }
-
-
