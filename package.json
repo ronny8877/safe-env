@@ -1,0 +1,43 @@
+{
+  "name": "check-env",
+  "version": "1.0.0",
+  "description": "A minimal, framework-agnostic environment variable checker with prefix support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "environment",
+    "env",
+    "validation",
+    "config",
+    "typescript",
+    "minimal"
+  ],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest",
+    "dev": "tsc --watch"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "dotenv": "^17.2.2",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/safe-env.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/safe-env/issues"
+  },
+  "homepage": "https://github.com/yourusername/safe-env#readme"
+}
