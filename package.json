@@ -34,10 +34,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/safe-env.git"
+    "url": "https://github.com/ronny8877/safe-env.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/safe-env/issues"
+    "url": "https://github.com/ronny8877/safe-env/issues"
   },
-  "homepage": "https://github.com/yourusername/safe-env#readme"
+  "homepage": "https://github.com/ronny8877/safe-env#readme"
 }
