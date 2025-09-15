@@ -17,20 +17,21 @@
   "scripts": {
     "build": "tsc",
     "test": "vitest",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "publish": "npm run build && npm publish --access public"
   },
   "files": [
     "dist",
     "README.md"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "dotenv": "^17.2.2",
     "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "vitest": "^3.2.4"
   },
   "repository": {
     "type": "git",
