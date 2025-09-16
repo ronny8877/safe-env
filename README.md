@@ -4,9 +4,9 @@ A minimal, framework-agnostic environment variable checker with prefix support. 
 
 ## Features
 
-- ✅ **Minimal** - Zero dependencies, tiny footprint
+- ✅ **Minimal** - Zero dependencies, tiny footprint (~2KB)
 - 🔧 **Framework Agnostic** - Works with any Node.js application
-- 🏷️ **Prefix Support** - Filter variables by prefix (like Next.js `NEXT_` variables)
+- 🏷️ **Prefix Support** - Filter variables by prefix (like prefixed `TEST_APP_` variables)
 - 🎯 **TypeScript First** - Full TypeScript support with detailed types
 - 🔒 **Safe Mode** - Non-exit mode for graceful error handling
 - 📦 **Custom Sources** - Check variables from any source, not just `process.env`
@@ -116,9 +116,10 @@ Perfect for framework-specific variables:
 ```typescript
 import { checkEnv } from "safe-env";
 
-// Check only Next.js variables
-checkEnv(["NEXT_PUBLIC_API_URL", "NEXT_SECRET"], {
-  prefix: "NEXT_",
+//SO it's easy to check only variables with a specific prefix
+
+checkEnv(["API_URL", "SECRET", "ANOTHER_VAR"], {
+  prefix: "TEST_APP",
 });
 
 // Check only custom app variables

@@ -1,6 +1,6 @@
 {
-  "name": "check-env",
-  "version": "1.0.0",
+  "name": "@ssdd/safe-env",
+  "version": "1.1.1",
   "description": "A minimal, framework-agnostic environment variable checker with prefix support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
+    "@types/node": "^20.19.15",
     "dotenv": "^17.2.2",
     "prettier": "^3.6.2",
     "typescript": "^5.0.0",
