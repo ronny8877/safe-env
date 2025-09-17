@@ -13,9 +13,11 @@ console.log("Result:", result2);
 
 console.log("\n Example 3: Prefix filtering");
 const result3 = checkEnvSafe(
-  ["API_URL", "TTL", "REDIRECT_PATH", "MAX_RETRIES"],
+  ["API_URLs", "TTL", "REDIRECT_PATH", "MAX_RETRIES"],
   { prefix: "PREFIX_" },
 );
+//checks for PREFIX_API_URL, PREFIX_TTL, PREFIX_REDIRECT_PATH, PREFIX_MAX_RETRIES
+
 console.log("Result:", result3);
 
 console.log("\n Example 4: Custom source");
@@ -25,7 +27,7 @@ const customConfig = {
   SECRET: undefined, // This will be missing
 };
 
-//WHEN YOU HAVE SOME WACKY ENV SOURCE LIKE import.meta.env or cloudflare workers
+// //WHEN YOU HAVE SOME WACKY ENV SOURCE LIKE import.meta.env or cloudflare workers
 const result4 = checkEnvSource(customConfig, { exitOnError: false });
 console.log("Result:", result4);
 

@@ -117,13 +117,13 @@ Perfect for framework-specific variables:
 import { checkEnv } from "safe-env";
 
 //SO it's easy to check only variables with a specific prefix
-
+//Checks for TEST_APP_API_URL, TEST_APP_SECRET, TEST_APP_ANOTHER_VAR
 checkEnv(["API_URL", "SECRET", "ANOTHER_VAR"], {
-  prefix: "TEST_APP",
+  prefix: "TEST_APP_",
 });
 
 // Check only custom app variables
-checkEnv(["MYAPP_DATABASE_URL", "MYAPP_API_KEY"], {
+checkEnv(["DATABASE_URL", "API_KEY"], {
   prefix: "MYAPP_",
 });
 ```
@@ -158,7 +158,7 @@ const customConfig = {
   OTHER_VAR: "ignored due to prefix",
 };
 
-const result = checkEnv(["NEXT_PUBLIC_API_URL", "NEXT_SECRET"], {
+const result = checkEnv(["PUBLIC_API_URL", "SECRET"], {
   source: customConfig,
   prefix: "NEXT_",
   exitOnError: false,
@@ -210,20 +210,6 @@ checkEnv(["DATABASE_URL", "REDIS_URL", "JWT_SECRET", "API_PORT"]);
 
 // Start your application
 startServer();
-```
-
-### Next.js Configuration
-
-```typescript
-// next.config.js
-import { checkEnv } from "safe-env";
-
-// Check Next.js specific variables
-checkEnv(["NEXT_PUBLIC_API_URL"], { prefix: "NEXT_" });
-
-export default {
-  // your config
-};
 ```
 
 ### Configuration Validation

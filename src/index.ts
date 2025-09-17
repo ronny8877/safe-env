@@ -59,10 +59,9 @@ export function checkEnv(
 ): CheckEnvResult {
   const { prefix, source, exitOnError = true } = options;
   const envSource = getEnvSource(source, prefix);
-
   // If prefix is provided, filter required vars to only those with the prefix
   const varsToCheck = prefix
-    ? requiredVars.filter((v) => v.startsWith(prefix))
+    ? requiredVars.map((v) => `${prefix}${v}`)
     : requiredVars;
 
   const missing = varsToCheck.filter((v) => !envSource[v]);

@@ -63,7 +63,7 @@ describe("env-check", () => {
       process.env.NEXT_SECRET = "test-secret";
       process.env.OTHER_VAR = "other";
 
-      const result = checkEnv(["NEXT_API_URL", "NEXT_SECRET"], {
+      const result = checkEnv(["API_URL", "SECRET"], {
         prefix: "NEXT_",
       });
 
@@ -75,7 +75,7 @@ describe("env-check", () => {
       process.env.NEXT_API_URL = "test-url";
       // NEXT_SECRET is missing
 
-      const result = checkEnv(["NEXT_API_URL", "NEXT_SECRET"], {
+      const result = checkEnv(["API_URL", "SECRET"], {
         prefix: "NEXT_",
         exitOnError: false,
       });
@@ -88,14 +88,15 @@ describe("env-check", () => {
       process.env.NEXT_API_URL = "test-url";
       process.env.OTHER_VAR = "other";
 
-      // Even though OTHER_VAR exists, it should be filtered out due to prefix
-      const result = checkEnv(["NEXT_API_URL", "OTHER_VAR"], {
+      // Even though OTHER_VAR exists, it'll be checked with prefix NEXT_
+      //so it should be considered missing
+      const result = checkEnv(["API_URL", "OTHER_VAR"], {
         prefix: "NEXT_",
         exitOnError: false,
       });
 
-      expect(result.success).toBe(true);
-      expect(result.missing).toEqual([]);
+      expect(result.success).toBe(false);
+      expect(result.missing).toEqual(["NEXT_OTHER_VAR"]);
     });
 
     it("should work with custom source", () => {
@@ -135,7 +136,7 @@ describe("env-check", () => {
         OTHER_VAR: "other",
       };
 
-      const result = checkEnv(["NEXT_API_URL", "NEXT_SECRET"], {
+      const result = checkEnv(["API_URL", "SECRET"], {
         source: customEnv,
         prefix: "NEXT_",
         exitOnError: false,
@@ -179,7 +180,7 @@ describe("env-check", () => {
         NEXT_SECRET: undefined,
       };
 
-      const result = checkEnvSafe(["NEXT_API_URL", "NEXT_SECRET"], {
+      const result = checkEnvSafe(["API_URL", "SECRET"], {
         source: customEnv,
         prefix: "NEXT_",
       });
@@ -224,7 +225,6 @@ describe("env-check", () => {
       };
 
       const result = checkEnvSource(source, {
-        prefix: "NEXT_",
         exitOnError: false,
       });
 
